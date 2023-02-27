@@ -29,7 +29,7 @@ export const fetchWeather = createAsyncThunk(
   "user/getWeather",
   async ({ currentUser }) => {
     const res = await axios.get(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${currentUser?.city?.city}?unitGroup=metric&key=${process.env.GZP7Y7H5ML99ZFGTCW8MZBPW4}&contentType=json`
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${currentUser?.city?.city}?unitGroup=metric&key=${process.env.REACT_APP_WEATHER_KEY}&contentType=json`
     );
     return res.data;
   }
