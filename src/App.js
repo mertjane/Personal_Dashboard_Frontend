@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Container } from "./pages/Pages.styles";
+import Landing from "./pages/Landing";
+import Home from "./pages/Home";
+
 
 function App() {
+  const auth = useSelector((state) => state.auth);
+
+  const ProtectedRoute = ({ children }) => {
+    
+    if (!auth.id) {
+      return <Navigate to="/landing" />;
+    }
+    return children;
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Routes>
+        <Route>
+          <Route
+            path="/"
+            index
+            element={
+              <ProtectedRoute>
+                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/landing" element={<Landing />} />
+        </Route>
+      </Routes>
+    </Container>
   );
 }
 
